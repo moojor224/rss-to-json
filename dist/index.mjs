@@ -1,32 +1,5 @@
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// src/index.ts
-var index_exports = {};
-__export(index_exports, {
-  default: () => parseFromUrl,
-  parseFromString: () => parseFromString,
-  parseFromUrl: () => parseFromUrl
-});
-module.exports = __toCommonJS(index_exports);
-
 // src/parse.ts
-var import_fast_xml_parser = require("fast-xml-parser");
+import { XMLParser } from "fast-xml-parser";
 async function parseFromUrl(url, config) {
   if (!/(^http(s?):\/\/[^\s$.?#].[^\s]*)/i.test(url)) return null;
   const data = await fetch(url, config).then((r) => r.text());
@@ -34,7 +7,7 @@ async function parseFromUrl(url, config) {
 }
 function parseFromString(data) {
   var _a, _b;
-  const xml = new import_fast_xml_parser.XMLParser({
+  const xml = new XMLParser({
     attributeNamePrefix: "",
     textNodeName: "$text",
     ignoreAttributes: false
@@ -89,9 +62,9 @@ function parseFromString(data) {
   }
   return rss;
 }
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
+export {
+  parseFromUrl as default,
   parseFromString,
   parseFromUrl
-});
-//# sourceMappingURL=index.js.map
+};
+//# sourceMappingURL=index.mjs.map
